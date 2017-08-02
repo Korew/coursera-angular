@@ -14,7 +14,9 @@ function LunchCheckController($scope) {
   $scope.checkLunch = function () {
     $scope.items = $scope.countItems($scope.lunch);
 
-    if ($scope.items < 4) {
+    if ($scope.items == 0) {
+      $scope.message = 'You are going to stay hungry!'
+    } else if ($scope.items < 4) {
       $scope.message = $scope.items + " — Enjoy!";
     } else {
       $scope.message = $scope.items + " — Too much!";
