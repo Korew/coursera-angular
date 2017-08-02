@@ -30,6 +30,7 @@ function LunchCheckController($scope) {
     for(i;i<lunchArr.length;i++) {
       if(lunchArr[i] == '') {
         lunchArr.splice(i, 1);
+        i--; //return to previous element as we deleted one
       }
     }
 // END Removes all empty elements
