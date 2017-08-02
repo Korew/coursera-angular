@@ -4,21 +4,38 @@
 angular.module('LunchCheck', [])
 .controller('LunchCheckController', LunchCheckController);
 
-LunchCheckController.$inject = ['$scope', '$filter'];
-function LunchCheckController($scope, $filter) {
-  $scope.name = "Yaakov";
-  $scope.stateOfBeing = "hungry";
-  $scope.cookieCost = .45;
+LunchCheckController.$inject = ['$scope'];
 
-  $scope.sayMessage = function () {
-    var msg = "Yaakov likes to eat healthy snacks at night!";
-    var output = $filter('uppercase')(msg);
-    return output;
+function LunchCheckController($scope) {
+  $scope.lunch = "";
+  $scope.message = "";
+  $scope.items = 0;
+
+  $scope.checkLunch = function () {
+    $scope.items = $scope.countItems($scope.lunch);
+
+    if ($scope.items < 4) {
+      $scope.message = $scope.items + " — Enjoy!";
+    } else {
+      $scope.message = $scope.items + " — Too much!";
+    }
   };
 
-  $scope.feedYaakov = function () {
-    $scope.stateOfBeing = "fed";
-  };
+  $scope.countItems = function (string) {
+    var lunchArr = string.replace(/\s/g,'').split(','); //first removes all spaces
+    var i = 0;
+    var x = '';
+
+// Removes all empty elements
+    for(i;i<lunchArr.length;i++) {
+      if(lunchArr[i] == '') {
+        lunchArr.splice(i, 1);
+      }
+    }
+// END Removes all empty elements
+
+    return lunchArr.length;
+  }
 }
 
 })();
